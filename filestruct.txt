@@ -1,0 +1,59 @@
+video...ex/
+|
+|-- api.py
+|   - FastAPI app
+|   - legacy campaign endpoints (/notifications/build, /build-batch)
+|   - new day-2 endpoint (/notifications/send-notifications)
+|   - branch remap + qdrant branch-map ingest endpoints
+|
+|-- notification_scheduler.py
+|   - old batch notification flow (eligible users -> weak indicator -> recommend -> send)
+|
+|-- notification_sender.py
+|   - FCM sender + sent-log dedup helpers
+|
+|-- notifications/
+|   |-- service.py
+|   |-- engine.py
+|   |-- models.py
+|   |-- video_selector.py
+|   |-- prepare_branch_mapping.py
+|   `-- branch_mapping_store.py
+|   - legacy campaign notification stack
+|   - branch mapping can now be sourced from local qdrant
+|
+|-- notificationschema/
+|   |-- resolver.py
+|   |-- schema.py
+|   `-- __init__.py
+|   - new notification build path for real-time/day-2 flow
+|
+|-- qdrant/
+|   |-- client.py
+|   |-- query.py
+|   `-- store.py
+|   - qdrant connection + query/write helpers
+|
+|-- qdrant_storage/
+|   - local embedded qdrant data
+|
+|-- recommend.py
+|   - recommendation selection logic used by both notification paths
+|
+|-- user_segmentation.py
+|-- weak_indicator.py
+|-- constants.py
+|   - shared scoring/selection inputs
+|
+|-- pipeline.py
+|-- pipeline/
+|   - extraction + metadata pipeline wrappers (not required for sending notifications)
+|
+|-- commands.txt
+|   - operational runbook commands
+|
+|-- watcher.py
+|   - watches new_videos and triggers pipeline flow
+|
+|-- .env
+|   - runtime configuration

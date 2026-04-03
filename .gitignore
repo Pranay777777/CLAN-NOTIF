@@ -1,0 +1,195 @@
+# ========================================================================
+# SECURITY: DO NOT COMMIT SENSITIVE DATA
+# ========================================================================
+
+# Environment variables with secrets - MUST BE IGNORED
+.env
+.env.local
+.env.*.local
+
+# ========================================================================
+# PYTHON
+# ========================================================================
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv
+venv/
+ENV/
+env/
+.venv3/
+
+# pytest cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ========================================================================
+# IDEs and Editors
+# ========================================================================
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+.#*
+\#*\#
+
+# ========================================================================
+# DATA FILES (Temporary / Generated)
+# ========================================================================
+
+# Excel files (temporary output)
+*.xlsx
+*.xls
+*.csv
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Qdrant local storage
+qdrant_storage/
+
+# Generated logs
+logs/
+*.log
+
+# Notification test logs
+notification_logs/
+test_notifications_log.json
+
+# Temporary outputs
+output.json
+output.md
+explore_db_output.txt
+test_*.txt
+current_ocr_output.txt
+ocrxmaple.txt
+indicator_config_output.txt
+test_*_output.txt
+score_table.txt
+score_trace.txt
+video_day_mapping.json
+
+# ========================================================================
+# OS-Specific
+# ========================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+
+# ========================================================================
+# IDE Generated Files
+# ========================================================================
+
+.project
+.pydevproject
+.settings/
+*.sublime-settings
+
+# ========================================================================
+# Package Manager
+# ========================================================================
+
+# npm (if Node is used)
+node_modules/
+package-lock.json
+yarn.lock
+
+# ========================================================================
+# Build Artifacts
+# ========================================================================
+
+*.class
+*.jar
+*.tar.gz
+*.zip
+
+# ========================================================================
+# Temporary/Cache Directories
+# ========================================================================
+
+.cache/
+.tmp/
+tmp/
+temp/
+**/temp/**
+**/tmp/**
+
+# HuggingFace cache
+.cache/huggingface/
+
+# ========================================================================
+# Private / Sensitive
+# ========================================================================
+
+secrets/
+*.pem
+*.key
+*.ppk
+*.pub
+credentials.json
+
+# ========================================================================
+# Large Files (optional, if needed)
+# ========================================================================
+
+# Uncomment to ignore large video files:
+# *.mp4
+# *.avi
+# *.mov
+# *.mkv
+# *.flv
+# *.wmv

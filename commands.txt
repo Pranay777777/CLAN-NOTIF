@@ -1,0 +1,85 @@
+Go to project folder
+cd video...ex
+
+Activate venv
+.\.venv\Scripts\Activate.ps1
+
+Sync/install dependencies (uv-based)
+uv sync
+
+Set local Unstructured OCR endpoint (required for extraction)
+$env:UNSTRUCTURED_OCR_URL="http://127.0.0.1:8001/general/v0/general"
+$env:UNSTRUCTURED_OCR_TIMEOUT="45"
+
+Quick OCR connectivity check (must return HTTP response, not timeout)
+.\.venv\Scripts\python.exe -c "import os,requests; u=os.environ.get('UNSTRUCTURED_OCR_URL','').strip(); assert u, 'UNSTRUCTURED_OCR_URL missing'; print('OCR URL:', u); r=requests.post(u, files={'file': ('probe.png', b'not-a-real-image', 'image/png')}, timeout=8); print('HTTP', r.status_code)"
+
+If above command times out, start/fix local unstructured OCR service before pipeline run
+
+Start Qdrant server (Docker, one-time per machine)
+docker run -d --name qdrant -p 6333:6333 -p 6334:6334 qdrant/qdrant
+
+If container already exists, start it
+docker start qdrant
+
+Optional clean start (stops any old API process before launching)
+Get-CimInstance Win32_Process | Where-Object { ($_.Name -match 'python\.exe|uvicorn\.exe') -and ($_.CommandLine -match 'api:app|uvicorn') } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
+Start-Sleep -Milliseconds 800
+
+Run API
+.\.venv\Scripts\python.exe -m uvicorn api:app --host 127.0.0.1 --port 8000
+
+In a new PowerShell terminal (same folder), activate venv again and run smoke test
+.\.venv\Scripts\Activate.ps1
+.\.venv\Scripts\python.exe quick_api_test.py
+
+If you want full pipeline mode (API + watcher), use two terminals:
+
+Terminal A
+cd video...ex
+.\.venv\Scripts\Activate.ps1
+.\.venv\Scripts\python.exe -m uvicorn api:app --host 127.0.0.1 --port 8000
+
+Terminal B
+cd video...ex
+.\.venv\Scripts\Activate.ps1
+.\.venv\Scripts\python.exe watcher.py --watch-dir ./new_videos --poll-seconds 1 --settle-seconds 2
+
+FastAPI docs and notification quality check
+Open browser:
+http://127.0.0.1:8000/docs
+
+In Swagger, run this order:
+1) GET /indicators
+	- Copy one live indicator code from response.
+
+2) POST /notifications/build
+	- Use a supported journey_day: 2, 4, 5, 6, 10, 11, 12, 16
+	- Use weak_indicator from GET /indicators
+	- Ensure language is set (example: hindi)
+
+Example payload for /notifications/build:
+{
+  "user_id": "RM_204",
+  "user_name": "Anita Sharma",
+  "role": "RM",
+  "branch": "Mumbai Central",
+  "region": "West",
+  "language": "hindi",
+  "journey_day": 12,
+  "weak_indicator": "customer_generation",
+  "watched_video_ids": [12, 15],
+  "months_in_role": 6
+}
+
+Expected success signal:
+- should_send = true
+- notification_title is non-empty
+- notification_body is non-empty
+
+Indicator sync (Postgres -> Qdrant)
+1) Preview sync impact (dry run):
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/notifications/admin/sync-indicators" -Method POST -Body '{"dry_run":true,"clear_unmapped":false}' -ContentType "application/json"
+
+2) Apply sync updates:
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/notifications/admin/sync-indicators" -Method POST -Body '{"dry_run":false,"clear_unmapped":false}' -ContentType "application/json"

@@ -1,0 +1,25 @@
+{
+  "total": 2,
+  "results": [
+    {
+      "campaign_day": 12,
+      "notification_title": "New video from someone you know",
+      "notification_body": "Aarav, Shikha from your Andheri branch shares how to double conversion rate.",
+      "audience_strategy": "personalized_same_team_or_region",
+      "cohort_key": "day12:user:201:2026-03-22",
+      "video_id": "vid_298",
+      "video_title": "How to qualify leads quickly",
+      "creator_name": "Shikha"
+    },
+    {
+      "campaign_day": 12,
+      "notification_title": "New video from someone you know",
+      "notification_body": "Priya, Rohan from your Bandra branch shares how to close leads faster.",
+      "audience_strategy": "personalized_same_team_or_region",
+      "cohort_key": "day12:user:202:2026-03-22",
+      "video_id": "vid_299",
+      "video_title": "Lead conversion playbook",
+      "creator_name": "Rohan"
+    }
+  ]
+}
