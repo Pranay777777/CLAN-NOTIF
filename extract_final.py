@@ -9,8 +9,6 @@ from difflib import SequenceMatcher
 import requests
 from PIL import Image
 from unstructured.partition.image import partition_image
-from openpyxl import Workbook
-from openpyxl.styles import Font, PatternFill, Alignment
 from dotenv import load_dotenv
 import subprocess
 import tempfile
@@ -31,7 +29,6 @@ logger = logging.getLogger('extract')
 
 # ── SETTINGS ──────────────────────────────────────────
 VIDEO_FOLDER   = "./videos"
-OUTPUT_EXCEL   = "./video_content_final.xlsx"
 FRAME_INTERVAL = float(os.getenv("OCR_FRAME_INTERVAL", "1.0"))
 OCR_SCALE      = float(os.getenv("OCR_SCALE", "1.0"))
 OCR_CLEAN_LINES = os.getenv("OCR_CLEAN_LINES", "1").strip().lower() not in {"0", "false", "no"}
@@ -622,7 +619,6 @@ def process_all_videos():
     ])
 
     logger.info(f"Found {len(videos)} videos")
-    logger.info(f"Output: {OUTPUT_EXCEL}")
     logger.info("=" * 50)
 
     results     = []
@@ -655,53 +651,7 @@ def process_all_videos():
     return results
 
 
-def save_to_excel(results):
-    logger.info("Saving to Excel...")
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "Video Content"
 
-    header_fill = PatternFill("solid", fgColor="1B3A6B")
-    header_font = Font(bold=True, color="FFFFFF", size=11)
-
-    headers    = ["#", "Video Title", "File Name", "Duration",
-                  "Screen Text (OCR)", "Audio Transcript (Whisper)"]
-    col_widths = [5,    35,            30,           10,
-                  60,                  60]
-
-    for col, (header, width) in enumerate(zip(headers, col_widths), 1):
-        cell = ws.cell(row=1, column=col, value=header)
-        cell.font = header_font
-        cell.fill = header_fill
-        cell.alignment = Alignment(
-            horizontal="center", vertical="center", wrap_text=True
-        )
-        ws.column_dimensions[cell.column_letter].width = width
-
-    ws.row_dimensions[1].height = 30
-    alt_fill = PatternFill("solid", fgColor="EEF4FF")
-
-    for row, data in enumerate(results, 2):
-        ws.cell(row=row, column=1, value=row - 1)
-        ws.cell(row=row, column=2, value=data["video_name"])
-        ws.cell(row=row, column=3, value=data["file_name"])
-        ws.cell(row=row, column=4, value=data["duration"])
-        ws.cell(row=row, column=5, value=data["screen_text"])
-        ws.cell(row=row, column=6, value=data["transcript"])
-
-        if row % 2 == 0:
-            for col in range(1, 7):
-                ws.cell(row=row, column=col).fill = alt_fill
-
-        for col in range(1, 7):
-            ws.cell(row=row, column=col).alignment = Alignment(
-                vertical="top", wrap_text=True
-            )
-        ws.row_dimensions[row].height = 150
-
-    ws.freeze_panes = "A2"
-    wb.save(OUTPUT_EXCEL)
-    logger.info(f"Saved to {OUTPUT_EXCEL}")
 
 
 # ── RUN ───────────────────────────────────────────────
@@ -709,5 +659,6 @@ if __name__ == "__main__":
     logger.info("CLAN Video Extraction Pipeline started")
     logger.info(f"OCR: unstructured | Audio: Whisper {WHISPER_MODEL}")
     results = process_all_videos()
-    save_to_excel(results)
-    logger.info("Pipeline complete. Open video_content_final.xlsx")
+    logger.info("Pipeline complete. Metadata extracted and ready for storage")
+    for result in results:
+        logger.info(f"✓ {result['video_name']}: {len(result['screen_text'])} chars OCR | {len(result['transcript'])} chars transcript")

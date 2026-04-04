@@ -1,0 +1,941 @@
+{
+  "clan_videos": [
+    {
+      "id": 288,
+      "payload": {
+        "video_id": "288",
+        "title": "Abhishek Sahu - An Intro",
+        "creator_name": "Abhishek Sahu",
+        "creator_role": "Relationship Manager",
+        "creator_region": "",
+        "lead_indicators": [
+          "customer_generation",
+          "marketing_activities_conducted"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "summary": "This video introduces Abhishek Sahu, a Relationship Manager at [COMPANY]. He discusses his background in telecommunications and mobile marketing and why he chose to work at [COMPANY]. Abhishek also shares his approach to setting and achieving sales targets, aiming for 50 Lakhs monthly, exceeding the company's base target of 30 Lakhs, to become a top performer.",
+        "key_lesson": "Setting ambitious personal targets beyond the company's base target can lead to improved performance and recognition.",
+        "problem_solved": "This video helps new joiners understand how to set and achieve personal sales targets to excel in their role.",
+        "sales_phase": "acquisition",
+        "experience_level": "new_joiner",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/qCBbm1DbvPY/0.jpg",
+        "description": "Abhishek Sahu, a top performer from Jabalpur."
+      }
+    },
+    {
+      "id": 289,
+      "payload": {
+        "video_id": "289",
+        "title": "How do you truly understand your customer before offering a product?",
+        "creator_name": "Abhishek Sahu",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Jabalpur",
+        "lead_indicators": [
+          "customer_interested",
+          "customer_document_uploaded"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "hindi",
+        "language_name": "Hindi",
+        "language_id": "9",
+        "summary": "This video teaches relationship managers how to effectively understand a customer's needs and financial situation before offering a loan product. It emphasizes the importance of asking the right questions to assess their financial stability and loan purpose. The video uses examples to illustrate how to identify hesitant customers and ensure they are aware of their financial capacity. It also covers the initial steps of gathering customer information and documents for loan processing.",
+        "key_lesson": "Thoroughly understand a customer's financial situation and needs before offering a loan product to ensure suitability and prevent future issues.",
+        "problem_solved": "Helps relationship managers avoid offering unsuitable loan products by providing a framework for assessing customer needs and financial stability upfront.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/2RdKnrHNRbg/0.jpg",
+        "description": "In this video, we break down how to correctly identify a customer’s real requirement before suggesting any loan product. How to assess whether the customer wants to buy a plot, purchase a ready-to-move house, or extend an existing home._x000D_\nYou’ll learn how to open the conversation and gauge the customer’s EMI comfort, and check their financial awareness. The video also highlights how to handle hesitant customers and companions who answer on their behalf._x000D_\nBy the end of this lesson, you’ll understand how to judge the customer’s repayment ability, loan purpose, and overall financial readiness, ensuring you guide them toward the right home loan option with confidence."
+      }
+    },
+    {
+      "id": 290,
+      "payload": {
+        "video_id": "290",
+        "title": "How do you understand a customer’s real financial situation without making them uncomfortable?",
+        "creator_name": "Abhishek Sahu",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Jabalpur",
+        "lead_indicators": [
+          "customer_generation",
+          "customer_interested"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "hindi",
+        "language_name": "Hindi",
+        "language_id": "9",
+        "summary": "This video provides guidance on how to understand a customer's financial situation without making them uncomfortable. It emphasizes the importance of building rapport and observing living conditions respectfully. The video also suggests asking about assets and income sources to gain a comprehensive understanding of the customer's financial stability. This information helps in pitching the right loan product.",
+        "key_lesson": "Understand a customer's financial situation by building trust, observing their living environment, and asking about assets and income sources indirectly.",
+        "problem_solved": "This video solves the problem of how to gather information about a customer's finances without causing discomfort or offense.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/4DhTbkDDvPo/0.jpg",
+        "description": "This video teaches you how to assess a customer’s financial position without making them uncomfortable. Instead of asking direct or sensitive questions, you’ll learn how to build rapport, observe respectfully, and ask simple questions about income and assets. The video also highlights how appearances can be misleading and why understanding real income sources helps you suggest the right loan product confidently."
+      }
+    },
+    {
+      "id": 291,
+      "payload": {
+        "video_id": "291",
+        "title": "How do you identify all the different sources of incomes a customer has?",
+        "creator_name": "Abhishek Sahu",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Jabalpur",
+        "lead_indicators": [
+          "customer_generation",
+          "customer_interested"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "hindi",
+        "language_name": "Hindi",
+        "language_id": "9",
+        "summary": "This video teaches relationship managers how to identify a customer's true income sources by verifying their business and observing their living conditions. It emphasizes the importance of not solely relying on what the customer says and instead looking for tangible evidence of financial stability. The video also highlights the significance of understanding the customer's investment habits and their plans for repaying the loan. By following these steps, relationship managers can better assess a customer's ability to repay a loan.",
+        "key_lesson": "Verify a customer's income sources through observation and investigation, not just their word.",
+        "problem_solved": "This video solves the problem of accurately identifying a customer's income sources to determine their financial stability and ability to repay a loan.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/AnD89hj-1I0/0.jpg",
+        "description": "This video explains how to accurately judge a customer’s financial stability by going beyond what they say and focusing on real indicators. You’ll learn how to validate income sources, observe living conditions, understand their investments, and confirm their repayment plan. By combining on-ground observations with the right questions, you can confidently assess whether the customer can genuinely afford the loan they’re applying for."
+      }
+    },
+    {
+      "id": 292,
+      "payload": {
+        "video_id": "292",
+        "title": "Kasibabu Kanchi - An Intro",
+        "creator_name": "Kasibabu Kanchi",
+        "creator_role": "Relationship Manager",
+        "creator_region": "",
+        "lead_indicators": [
+          "customer_generation",
+          "customer_interested"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "summary": "This video features Kasibabu Kanchi, a Relationship Manager from the Kakinada branch, sharing his experience in home loans. He discusses his transition from a gold manager role and his initial challenges in learning about home loans. He emphasizes the importance of incentives and referral leads from repeated customers for his success, highlighting his ability to secure a significant number of loan logins each month.",
+        "key_lesson": "Building strong customer relationships and focusing on incentives can lead to consistent loan generation.",
+        "problem_solved": "This video shows how to generate leads and close deals by focusing on customer relationships and incentives.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/K8QFzy1ywTM/0.jpg",
+        "description": "Meet Kasibabu, with 2 years at Aadhar Kasibabu turned early challenges into a strong track record, now confidently handling ₹40–50 lakh loan files with ease. Driven by performance and incentives, he consistently earns ₹20,000–25,000 through sheer dedication. Kanchi averages 6–7 logins a month, and even when a couple face technical hurdles, he still ensures at least 5 successful logins, month after month. A true example of consistency, resilience, and relationship-driven selling."
+      }
+    },
+    {
+      "id": 293,
+      "payload": {
+        "video_id": "293",
+        "title": "Pathan Hyder Hussain- ",
+        "creator_name": "Pathan Hyder Hussain",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Vijayawada",
+        "lead_indicators": [
+          "marketing_activities_conducted",
+          "customer_generation"
+        ],
+        "target_audience": "mid_performer",
+        "difficulty": "intermediate",
+        "summary": "This video features Pathan Hyder Hussain, a Relationship Manager, discussing his strategies for exceeding his monthly sales target. He focuses on marketing activities, meeting connectors, and assisting customers with their queries. He aims to achieve 60-70 lakhs every month, significantly surpassing his target of 25 lakhs. He also shares his experience in the home loan industry and how he consistently achieves 200% of his target.",
+        "key_lesson": "Consistent marketing efforts and building strong connector relationships are crucial for exceeding sales targets in the home loan industry.",
+        "problem_solved": "Provides strategies for relationship managers to increase their sales performance and exceed targets through effective marketing and networking.",
+        "sales_phase": "acquisition",
+        "experience_level": "experienced",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/DeCp6eB2yoQ/0.jpg",
+        "description": "Meet Hyder, one of Aadhar Housing Finance’s most driven performers, with 3 years in Aadhar and 5 years of total experience in the home-loan industry. With a monthly target of ₹25 lakhs, he doesn’t just aim high he plans for ₹60–70 lakhs every month, consistently pushing beyond expectations._x000D_\nHis success comes from staying active on the ground: strong marketing, regular connector meetings, and quick support for customer queries. These everyday efforts bring him the majority of his business._x000D_\nA top performer through and through, he has earned a maximum incentive of ₹45,000, and year after year, he strives to hit 200% of his target—setting the benchmark for ambition, discipline, and results."
+      }
+    },
+    {
+      "id": 294,
+      "payload": {
+        "video_id": "294",
+        "title": "How should you handle a difficult customer during the first discussion?",
+        "creator_name": "Abhishek Sahu",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Jabalpur",
+        "lead_indicators": [
+          "customer_interested",
+          "customer_generation"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "hindi",
+        "language_name": "Hindi",
+        "language_id": "9",
+        "summary": "This video provides guidance on how to handle difficult customers during the initial discussion in the sales process. It emphasizes the importance of maintaining a positive and polite demeanor, even when faced with rude or uncooperative customers. The video also covers techniques for extracting necessary financial information from customers who are hesitant to share details, and how to explain the loan process effectively. It stresses the importance of not getting emotional and focusing on the customer's financial profile to determine their suitability for a loan.",
+        "key_lesson": "Maintain a positive and professional attitude while gathering necessary information, even when dealing with difficult or uncooperative customers.",
+        "problem_solved": "Provides strategies for relationship managers to effectively handle difficult customer interactions during the initial sales discussion, ensuring they gather necessary information while maintaining a positive relationship.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/CduHGzXWiRg/0.jpg",
+        "description": "Dealing with customers who avoid questions or respond vaguely is a common challenge in home-loan sales. In this video, we walk through how to handle such situations with patience, politeness, and a positive mindset. Using a real-life example, you’ll learn how to gently probe for financial details, assess eligibility, and maintain professionalism even when the customer is irritated or uncooperative."
+      }
+    },
+    {
+      "id": 295,
+      "payload": {
+        "video_id": "295",
+        "title": "How do you decide which places or people to focus on for your self-sourcing?",
+        "creator_name": "Pathan Hyder Hussain",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Vijayawada",
+        "lead_indicators": [
+          "customer_generation",
+          "potential_channel_partners_identified"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video explains how relationship managers can self-source leads by engaging with various people and places. It covers meeting with connectors, registrar offices, document writers, and customers directly. The video emphasizes explaining the company's unique offerings, such as loans without income proof, and addressing customer concerns about choosing their company over competitors. It also highlights the importance of providing excellent service and building trust with potential customers and connectors.",
+        "key_lesson": "Relationship managers should actively engage with various sources, including connectors and customers, to generate leads and build trust by addressing their concerns and highlighting the company's unique offerings.",
+        "problem_solved": "This video solves the problem of how relationship managers can effectively self-source leads by providing practical strategies for engaging with different people and places in the market.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/zqP126zVeK0/0.jpg",
+        "description": "This video shows how to source home-loan business using simple, effective field techniques. From building connections at the registration office to engaging with document writers and auto drivers, the video explains how to promote Aadhar Housing Finance by clearly communicating interest rates, unique benefits, and the company’s advantages, especially loans without income proof. It also highlights how to answer customer questions confidently and explain why Aadhar is the right choice."
+      }
+    },
+    {
+      "id": 296,
+      "payload": {
+        "video_id": "296",
+        "title": "How far in advance do you plan these activities, and what does your preparation look like?",
+        "creator_name": "Pathan Hyder Hussain",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Vijayawada",
+        "lead_indicators": [
+          "marketing_activities_conducted",
+          "customer_loan_approved"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video explains how a relationship manager plans and prepares for marketing activities. The manager utilizes the day after a milestone to conduct marketing and office work. They carry marketing materials during customer visits and distribute them in populated areas. They follow up with potential customers the next day, aiming to convert a small percentage into loan applicants.",
+        "key_lesson": "Effective marketing involves proactive planning, carrying materials during visits, and consistent follow-up to convert leads.",
+        "problem_solved": "This video addresses the problem of how to effectively plan and execute marketing activities to generate leads and convert them into loan applicants.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/JHEgYd2UiBY/0.jpg",
+        "description": "This video explains how a Relationship Manager plans and executes daily marketing activities to generate consistent home-loan leads. From distributing pamphlets at construction sites and crowded areas to carrying marketing material during customer visits, the video highlights practical on-ground techniques. It also shows the importance of timely follow-up—calling every contact the next day to convert even one solid lead into a successful loan."
+      }
+    },
+    {
+      "id": 297,
+      "payload": {
+        "video_id": "297",
+        "title": "Which places work best for you, such as shopping malls, markets etc?",
+        "creator_name": "Pathan Hyder Hussain",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Vijayawada",
+        "lead_indicators": [
+          "marketing_activities_conducted",
+          "customer_loan_approved"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video provides guidance on selecting effective locations for marketing activities to generate leads. It emphasizes the importance of assessing the area's potential based on factors like construction activity, the presence of daily wage workers, and overall business activity. The video also highlights the need to adapt marketing strategies based on the specific location and time of day. It suggests targeting villages in the early morning and construction sites or business centers at other times.",
+        "key_lesson": "Assess and adapt marketing locations based on the area's potential and the target audience present.",
+        "problem_solved": "Helps relationship managers identify and select the most effective locations for marketing activities to generate leads.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/GIKbSqO7X8I/0.jpg",
+        "description": "This video explains how a Relationship Manager can choose the right locations for marketing to maximise lead generation. _x000D_\nFrom early-morning village visits to identifying construction sites, busy streets, and interacting with auto drivers or small vendors, this video breaks down how to spot high-potential areas during your daily workflow."
+      }
+    },
+    {
+      "id": 298,
+      "payload": {
+        "video_id": "298",
+        "title": "How do you handle customers who are not interested in taking a loan from you?",
+        "creator_name": "Pathan Hyder Hussain",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Vijayawada",
+        "lead_indicators": [
+          "customer_document_uploaded",
+          "customer_loan_disbursed",
+          "marketing_activities_conducted"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video provides guidance on how to handle customers who are not interested in taking a loan. It emphasizes the importance of staying calm and apologizing for the inconvenience. The video suggests offering a pamphlet and requesting the customer to share it with their friends or relatives who may need a loan. It also advises assuring the customer that they will not be troubled unnecessarily.",
+        "key_lesson": "Maintain a calm and respectful approach when dealing with uninterested customers, focusing on leaving a positive impression and potential future opportunities.",
+        "problem_solved": "Provides a structured approach for relationship managers to handle initial customer disinterest, turning a potential rejection into a possible lead generation opportunity.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/1WJ6CbvtaT0/0.jpg",
+        "description": "Hyder explains how to professionally handle customers who are not interested in taking a loan. It covers how to stay composed, respond politely, provide your contact details, and still create opportunities through referrals, without disturbing or pressuring the customer."
+      }
+    },
+    {
+      "id": 299,
+      "payload": {
+        "video_id": "299",
+        "title": "How did you overcome initial challenges you faced while conducting marketing activities?",
+        "creator_name": "Pathan Hyder Hussain",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Vijayawada",
+        "lead_indicators": [
+          "marketing_activities_conducted",
+          "customer_loan_approved"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "In this video, a relationship manager shares their experience overcoming initial challenges in marketing and customer interaction. They emphasize the importance of learning from others' experiences, building confidence through early successes, and providing excellent service without commission to encourage referrals. The video highlights the value of understanding customer needs and tailoring communication strategies for effective engagement. Ultimately, the video shows how consistent effort and a customer-centric approach can lead to success in the housing finance industry.",
+        "key_lesson": "Building relationships and providing excellent service without focusing solely on commission can lead to customer referrals and increased confidence.",
+        "problem_solved": "This video addresses the initial struggles new relationship managers face in marketing and customer interaction by providing practical tips and strategies for building confidence and generating leads.",
+        "sales_phase": "acquisition",
+        "experience_level": "new_joiner",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/_MedJhPR0iA/0.jpg",
+        "description": "Hyder shares his journey of overcoming early challenges in marketing as a Relationship Manager. His video covers how field experience, customer interactions, and small early successes built confidence."
+      }
+    },
+    {
+      "id": 300,
+      "payload": {
+        "video_id": "300",
+        "title": "How important are marketing activities to you as a Relationship Manager?",
+        "creator_name": "Kasibabu Kanchi",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Kakinada",
+        "lead_indicators": [
+          "customer_generation",
+          "marketing_activities_conducted",
+          "potential_channel_partners_identified"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video emphasizes the importance of effective communication and relationship building with potential customers, particularly through local channels like grocery stores. The Relationship Manager explains how detailing loan benefits and interest rates to shop owners can lead to referrals. They also mention a connector program that incentivizes referrals with financial rewards. The video highlights the role of marketing activities in generating leads.",
+        "key_lesson": "Building trust and providing clear explanations of loan benefits to local influencers, like grocery store owners, can significantly increase lead generation.",
+        "problem_solved": "This video addresses the problem of how to effectively generate leads in local communities by leveraging existing networks and building relationships with key influencers.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/dooXQcIXqcM/0.jpg",
+        "description": "Kasibabu explains why marketing activities are crucial for a Relationship Manager. He highlights how building trust through clear communication, working with local kirana shop owners, and rewarding referrals can significantly improve lead generation and sales outcomes._x000D_\n"
+      }
+    },
+    {
+      "id": 301,
+      "payload": {
+        "video_id": "301",
+        "title": "How do you use self-sourcing and references to achieve your targets?",
+        "creator_name": "Pathan Hyder Hussain",
+        "creator_role": "Relationship Manager",
+        "creator_region": "Vijayawada",
+        "lead_indicators": [
+          "marketing_activities_conducted",
+          "daily_huddle_meeting_attended"
+        ],
+        "target_audience": "mid_performer",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video explains how a relationship manager uses self-sourcing and references to achieve and exceed their sales targets. The speaker emphasizes prioritizing self-sourcing through market activity and direct customer interaction to reach 100% of the target. References from satisfied customers are treated as a bonus, contributing to achievements beyond the initial target, potentially reaching 150% to 200%. The video highlights strategies for both acquiring new customers and leveraging existing relationships for further growth.",
+        "key_lesson": "Prioritize self-sourcing to meet your target and leverage references to exceed it.",
+        "problem_solved": "How to effectively balance self-sourcing and referrals to maximize sales performance.",
+        "sales_phase": "acquisition",
+        "experience_level": "experienced",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/01Wym0Go-Tk/0.jpg",
+        "description": "Hyder explains how focusing on self-sourcing helps consistently achieve targets, while references act as an added buffer for higher performance. He shares how personally pitched leads help reach 100% of targets, and how references generated from these leads push achievements beyond expectations."
+      }
+    },
+    {
+      "id": 302,
+      "payload": {
+        "video_id": "302",
+        "title": "Charan Teja - An Intro",
+        "creator_name": "Charan Teja",
+        "creator_role": "Senior Executive - Sales",
+        "creator_region": "Narasaraopet",
+        "lead_indicators": [
+          "marketing_activities_conducted",
+          "daily_huddle_meeting_attended"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "summary": "Charan Teja introduces himself and shares his experience working in the housing finance sector. He highlights his sales target of 20 lakhs and how he consistently exceeds it, achieving 35-40 lakhs. He also discusses the incentives and contests, like the NDJFM contest, that motivate him to perform well and achieve higher targets, including the opportunity to win an international trip.",
+        "key_lesson": "Consistent effort and exceeding targets lead to incentives and recognition within the company.",
+        "problem_solved": "This video provides motivation and highlights the benefits of exceeding sales targets, encouraging employees to strive for better performance.",
+        "sales_phase": "development",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/FSHMbYiTiMY/0.jpg",
+        "description": "Meet Charan Teja, a driven Relationship Manager at Aadhar Housing Finance, who proves that targets are just the starting line._x000D_\n_x000D_\nWith 2 years of experience at Aadhar and a strong foundation from his time as a DSA Executive, Charan consistently goes beyond expectations. While his monthly target is ₹20 lakhs, he regularly achieves ₹30–45 lakhs, unlocking incentives, earning recognition, and qualifying for high-performance contests like JFM, where top achievers even win international trips._x000D_\n_x000D_\nFor Charan, daily discipline, consistent performance, and aiming higher every single day are what turn effort into results, and results into recognition."
+      }
+    },
+    {
+      "id": 303,
+      "payload": {
+        "video_id": "303",
+        "title": "What role does the daily huddle play in closing cases faster?",
+        "creator_name": "Charan Teja",
+        "creator_role": "Senior Executive - Sales",
+        "creator_region": "Narasaraopet",
+        "lead_indicators": [
+          "customer_interested",
+          "customer_document_uploaded"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video explains the importance of daily huddle meetings in resolving customer issues and closing loan cases faster. It uses examples of how huddles help in negotiating interest rates, addressing bank aggregator problems, and ensuring OTP delivery for customers. The video emphasizes the role of senior executives in providing guidance and solutions during these meetings. It also highlights how huddles facilitate quick problem-solving and improve overall efficiency.",
+        "key_lesson": "Daily huddles are crucial for quickly addressing customer issues, sharing knowledge, and accelerating the loan closing process.",
+        "problem_solved": "This video solves the problem of how to effectively use daily huddles to address customer concerns and expedite the loan approval process.",
+        "sales_phase": "conversion",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/MRwWFVKMFm8/0.jpg",
+        "description": "Charan explains why the daily huddle meeting is a critical part of a Relationship Manager’s success. He tells how daily huddles help resolve customer cases, clarify loan structures, and quickly solve operational challenges. "
+      }
+    },
+    {
+      "id": 304,
+      "payload": {
+        "video_id": "304",
+        "title": "What common document issue keeps repeating while logging files?",
+        "creator_name": "Charan Teja",
+        "creator_role": "Senior Executive - Sales",
+        "creator_region": "Narasaraopet",
+        "lead_indicators": [
+          "customer_document_uploaded",
+          "product_trainings_attended"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video addresses the common issue of missing proof of present address during KYC and file logging. It explains that confusion arises when Aadhar only shows permanent address, causing problems in logging the file. The solution involves accepting alternative documents like gas bills, electricity bills, or rental agreements. A self-declaration form with both addresses, signed and notarized, can also be used.",
+        "key_lesson": "When a customer lacks proof of current address, accept alternative documents like utility bills or a notarized self-declaration form to proceed with file logging.",
+        "problem_solved": "This video solves the problem of how to handle situations where customers lack proof of their current address during the KYC and file logging process.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/_J5oXW0VZL4/0.jpg",
+        "description": "Charan explains one of the most common and avoidable problems faced during file logging, confusion around KYC and address proof. He highlights issues with Aadhaar, PAN, bank statements, and mismatches between permanent and current addresses."
+      }
+    },
+    {
+      "id": 305,
+      "payload": {
+        "video_id": "305",
+        "title": "What are the top reasons a file can be rejected by the 3I team?",
+        "creator_name": "Charan Teja",
+        "creator_role": "Senior Executive - Sales",
+        "creator_region": "Narasaraopet",
+        "lead_indicators": [
+          "customer_document_uploaded",
+          "customer_loan_approved"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video explains the top reasons why a loan file might be rejected by the 3I team at a housing finance company. It covers CIBIL score requirements, highlighting that scores below 642 can lead to rejection and scores below 510 will definitely cause rejection. The video also discusses the impact of existing loans, payment issues (DPDs in the last 3 months), and involvement in betting or related money transactions on file approval.",
+        "key_lesson": "Understanding the common reasons for file rejection, such as low CIBIL scores, DPDs, and involvement in betting, is crucial for avoiding wasted effort and ensuring loan approval.",
+        "problem_solved": "This video clarifies the common reasons for loan file rejections, enabling sales representatives to proactively address potential issues and improve their chances of securing loan approvals.",
+        "sales_phase": "conversion",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/k8aXSvp-hcA/0.jpg",
+        "description": "Charan explains the top reasons why a home-loan file gets rejected by the 3I team. It highlights the importance of checking the customer’s CIBIL score, existing loan repayment behaviour, and credit eligibility before moving the file."
+      }
+    },
+    {
+      "id": 306,
+      "payload": {
+        "video_id": "306",
+        "title": "How can we calmly handle a customer whose loan is rejected and demands a refund?",
+        "creator_name": "Charan Teja",
+        "creator_role": "Senior Executive - Sales",
+        "creator_region": "Narasaraopet",
+        "lead_indicators": [
+          "customer_document_uploaded",
+          "customer_loan_approved"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video demonstrates how to handle a customer who is angry about a rejected loan and demands a refund of the login fee. It highlights the importance of clear communication regarding non-refundable fees and the need to explain the reasons for loan rejection. The video also showcases how a manager can effectively intervene and resolve the situation by explaining the company's policy and offering alternative solutions. It emphasizes the importance of empathy and providing assistance within the company's guidelines.",
+        "key_lesson": "When dealing with upset customers demanding refunds for rejected loans, clearly explain the reasons for rejection, reiterate company policies, and offer alternative solutions within company guidelines.",
+        "problem_solved": "This video solves the problem of how to de-escalate and resolve conflicts with customers who demand refunds after their loan application is rejected due to technical issues or document discrepancies.",
+        "sales_phase": "conversion",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/PzHamdIN31U/0.jpg",
+        "description": "Charan explains how to handle customers calmly when their loan gets rejected and they demand a login fee refund. He talks about the importance of clear communication, involving your manager at the right time, and explaining company policies with confidence."
+      }
+    },
+    {
+      "id": 307,
+      "payload": {
+        "video_id": "307",
+        "title": "How can we handle a customer calmly when their loan application is rejected?",
+        "creator_name": "Charan Teja",
+        "creator_role": "Senior Executive - Sales",
+        "creator_region": "Narasaraopet",
+        "lead_indicators": [
+          "customer_interested",
+          "customer_document_uploaded"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video demonstrates how to handle a customer whose loan application was rejected due to betting transactions linked to their shared personal documents. It highlights the importance of explaining the reason for rejection clearly and offering alternative assistance. The video emphasizes maintaining a calm and professional demeanor while delivering unfavorable news. It also touches upon the need to investigate potential risks associated with shared personal information.",
+        "key_lesson": "Maintain composure and clearly explain the reasons for loan rejection, even when dealing with difficult situations.",
+        "problem_solved": "Provides guidance on how to communicate loan rejection to a customer due to issues like betting transactions linked to shared personal documents while maintaining a professional relationship.",
+        "sales_phase": "conversion",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/PRpR3RpGSa0/0.jpg",
+        "description": "Charan explains how to handle a customer calmly and professionally when a loan application is rejected. Using the example of Shiva, he shows the importance of asking the right questions before login, clearly explaining non-refundable charges, and setting correct expectations."
+      }
+    },
+    {
+      "id": 308,
+      "payload": {
+        "video_id": "308",
+        "title": "How would you explain that the processing fee depends on the loan amount?",
+        "creator_name": "Charan Teja",
+        "creator_role": "Senior Executive - Sales",
+        "creator_region": "Narasaraopet",
+        "lead_indicators": [
+          "customer_interested",
+          "product_trainings_attended"
+        ],
+        "target_audience": "all",
+        "difficulty": "beginner",
+        "language": "telugu",
+        "language_name": "Telugu",
+        "language_id": "3",
+        "summary": "This video explains how to explain processing fees to customers, specifically focusing on how the fee structure depends on the loan amount. It covers the login fee, admin fee (2% + 18% GST), and how these fees are handled for HL/purchase customers versus LAP customers. The video uses a 10 lakh loan as an example to illustrate the fee breakdown and payment process.",
+        "key_lesson": "Clearly explain the processing fees, including login and admin fees, and how they differ based on the type of loan (HL/purchase vs. LAP).",
+        "problem_solved": "Provides a clear explanation of how to articulate the loan processing fee structure to customers, addressing potential confusion about how fees are calculated and applied.",
+        "sales_phase": "acquisition",
+        "experience_level": "all",
+        "ai_generated": true,
+        "thumbnail_url": "https://img.youtube.com/vi/kY8EE2qRfsw/0.jpg",
+        "description": "Charan explains how to clearly communicate processing and login fees to customers based on the loan amount. Using a simple example, he breaks down admin fees, GST, and how charges differ for Home Loan (HL), Purchased Property, and LAP customers."
+      }
+    }
+  ],
+  "branch_mappings": [
+    {
+      "id": 62266917175404656,
+      "payload": {
+        "type": "content_id",
+        "key": "291",
+        "branch": "Jabalpur",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 138828435738859780,
+      "payload": {
+        "type": "code",
+        "key": "01wym0go-tk",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 150113024778737285,
+      "payload": {
+        "type": "code",
+        "key": "k8qfzy1ywtm",
+        "branch": "Kakinada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 176184432899123639,
+      "payload": {
+        "type": "content_id",
+        "key": "307",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 197280969609911891,
+      "payload": {
+        "type": "code",
+        "key": "_medjhpr0ia",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 227161825571553175,
+      "payload": {
+        "type": "code",
+        "key": "k8axsvp-hca",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 258221483206139885,
+      "payload": {
+        "type": "content_id",
+        "key": "304",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 282100611036084746,
+      "payload": {
+        "type": "content_id",
+        "key": "301",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 299211967367618049,
+      "payload": {
+        "type": "content_id",
+        "key": "299",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 299941794439183213,
+      "payload": {
+        "type": "code",
+        "key": "ky8ee2qrfsw",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 310319947442536637,
+      "payload": {
+        "type": "code",
+        "key": "fshmbyitimy",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 310374639701193679,
+      "payload": {
+        "type": "content_id",
+        "key": "292",
+        "branch": "Kakinada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 316998639806665094,
+      "payload": {
+        "type": "code",
+        "key": "_j5oxw0vzl4",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 320094565729279256,
+      "payload": {
+        "type": "code",
+        "key": "4dhtbkddvpo",
+        "branch": "Jabalpur",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 326170707601331592,
+      "payload": {
+        "type": "content_id",
+        "key": "303",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 457407847651309492,
+      "payload": {
+        "type": "content_id",
+        "key": "297",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 463309804022154274,
+      "payload": {
+        "type": "content_id",
+        "key": "293",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 465453585263536049,
+      "payload": {
+        "type": "code",
+        "key": "mrwwfvkmfm8",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 473599411350333011,
+      "payload": {
+        "type": "code",
+        "key": "prpr3rpgsa0",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 504308509316109128,
+      "payload": {
+        "type": "code",
+        "key": "gikbsqo7x8i",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 523121822260741152,
+      "payload": {
+        "type": "content_id",
+        "key": "300",
+        "branch": "Kakinada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 525586752585200192,
+      "payload": {
+        "type": "content_id",
+        "key": "302",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 534694866935848967,
+      "payload": {
+        "type": "code",
+        "key": "2rdknrhnrbg",
+        "branch": "Jabalpur",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 537604083613826083,
+      "payload": {
+        "type": "content_id",
+        "key": "306",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 540743925185433977,
+      "payload": {
+        "type": "content_id",
+        "key": "288",
+        "branch": "Jabalpur",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 577984248381312086,
+      "payload": {
+        "type": "content_id",
+        "key": "290",
+        "branch": "Jabalpur",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 633081364238455637,
+      "payload": {
+        "type": "content_id",
+        "key": "294",
+        "branch": "Jabalpur",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 715070404721838309,
+      "payload": {
+        "type": "content_id",
+        "key": "308",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 717702667338723151,
+      "payload": {
+        "type": "code",
+        "key": "cduhgzxwirg",
+        "branch": "Jabalpur",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 731711616768462351,
+      "payload": {
+        "type": "content_id",
+        "key": "305",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 783445480305860925,
+      "payload": {
+        "type": "code",
+        "key": "dooxqcixqcm",
+        "branch": "Kakinada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 784462321734107795,
+      "payload": {
+        "type": "content_id",
+        "key": "298",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 803379589973644862,
+      "payload": {
+        "type": "code",
+        "key": "jhegyd2uiby",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 849178965010257850,
+      "payload": {
+        "type": "code",
+        "key": "and89hj-1i0",
+        "branch": "Jabalpur",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 902934174724070307,
+      "payload": {
+        "type": "code",
+        "key": "qcbbm1dbvpy",
+        "branch": "Jabalpur",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 982928286894707686,
+      "payload": {
+        "type": "code",
+        "key": "decp6eb2yoq",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 1076582561526008165,
+      "payload": {
+        "type": "content_id",
+        "key": "295",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 1078382504180198349,
+      "payload": {
+        "type": "code",
+        "key": "pzhamdin31u",
+        "branch": "Narasaraopet",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 1111597549880868618,
+      "payload": {
+        "type": "code",
+        "key": "zqp126zvek0",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 1116868074702852894,
+      "payload": {
+        "type": "content_id",
+        "key": "296",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 1143889260518868209,
+      "payload": {
+        "type": "code",
+        "key": "1wj6cbvtat0",
+        "branch": "Vijayawada",
+        "source": "./data including branch.xlsx"
+      }
+    },
+    {
+      "id": 1149852327642148196,
+      "payload": {
+        "type": "content_id",
+        "key": "289",
+        "branch": "Jabalpur",
+        "source": "./data including branch.xlsx"
+      }
+    }
+  ]
+}

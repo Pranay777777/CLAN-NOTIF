@@ -15,6 +15,7 @@ def query_points(query_vector, limit: int = 30, query_filter: Filter | None = No
 
 def scroll_points(limit: int = 100, offset=None, with_payload: bool = True, with_vectors: bool = False):
     client = get_qdrant_client()
+    print("client", client)
     return client.scroll(
         collection_name=get_collection_name(),
         limit=limit,

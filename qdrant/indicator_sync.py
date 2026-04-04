@@ -62,6 +62,8 @@ def _fetch_content_indicator_map(account_id: int) -> dict[int, list[str]]:
         if code not in mapping[content_id]:
             mapping[content_id].append(code)
 
+    print(dict(mapping))        
+
     return dict(mapping)
 
 

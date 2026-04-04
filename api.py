@@ -907,6 +907,7 @@ def sync_indicators(req: IndicatorSyncRequest):
             clear_unmapped=req.clear_unmapped,
             limit=req.limit,
         )
+        print("Sync stats:", stats)
         logger.info(
             "Indicator sync complete | dry_run=%s | scanned=%s | updated=%s",
             stats.get("dry_run"),
