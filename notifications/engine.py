@@ -41,7 +41,7 @@ class NotificationEngine:
     _DAY_NOTIFICATION_TYPES = {
         1: "PUSH_VIDEO_FOR_USER",
         2: "PUSH_VIDEO_FOR_USER",
-        3: "JOURNEY_HOME",
+        3: "DART_USER_SNAPSHOT",
         4: "PUSH_VIDEO_FOR_USER",
         5: "FILL_DARTS",
         6: "LEADING_BETA_OF_THE_DAY",

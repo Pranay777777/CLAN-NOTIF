@@ -7,12 +7,14 @@ from typing import List, Optional
 import httpx
 
 from fastapi import FastAPI, HTTPException, Request
-from apscheduler.schedulers.background import BackgroundScheduler
+import requests
+# from apscheduler.schedulers.background import BackgroundScheduler
 from pydantic import BaseModel, field_validator
 from dotenv import load_dotenv
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
+from whisper import model
 from constants import ACCOUNT_ID, is_excluded_video, normalize_language
 from notifications.models import NotificationRequest as CampaignNotificationRequest
 from notifications.models import NotificationResponse as CampaignNotificationResponse
@@ -28,6 +30,8 @@ from qdrant_client.models import Filter, FieldCondition, MatchValue
 from notifications.database_config import PostgresConfig
 from database.db_config import SessionLocal
 from notificationschema.resolver import NotificationResolver
+from send_notification_to_user import get_user_details
+from weak_indicator import get_weak_indicator
 
 os.makedirs("logs", exist_ok=True)
 
@@ -43,7 +47,9 @@ logger = logging.getLogger("api")
 load_dotenv()
 
 # Background scheduler for automated sync
-scheduler = BackgroundScheduler(daemon=True)
+# scheduler = BackgroundScheduler(daemon=True)
+
+NOTIFICATION_API_URL = "https://clantesting.quantapeople.com/clantestapi/notifications/send_notifications"
 
 def run_hourly_sync():
     """Background job to sync indicators + language from Postgres to Qdrant every hour."""
@@ -65,21 +71,21 @@ def run_hourly_sync():
     except Exception as exc:
         logger.exception("Automated sync failed: %s", exc)
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Manage app startup and shutdown."""
-    # Startup
-    logger.info("Starting FastAPI app with background indicator sync scheduler (hourly)")
-    scheduler.add_job(run_hourly_sync, "interval", hours=1, id="sync_indicators_hourly")
-    scheduler.start()
-    yield
-    # Shutdown
-    logger.info("Shutting down, stopping scheduler...")
-    scheduler.shutdown()
+# @asynccontextmanager
+# async def lifespan(app: FastAPI):
+#     """Manage app startup and shutdown."""
+#     # Startup
+#     logger.info("Starting FastAPI app with background indicator sync scheduler (hourly)")
+#     scheduler.add_job(run_hourly_sync, "interval", hours=1, id="sync_indicators_hourly")
+#     scheduler.start()
+#     yield
+#     # Shutdown
+#     logger.info("Shutting down, stopping scheduler...")
+#     scheduler.shutdown()
 
-app = FastAPI(title="CLAN Video Recommendation API", lifespan=lifespan)
+app = FastAPI(title="CLAN Video Recommendation API")
 model = SentenceTransformer("all-MiniLM-L6-v2")
-notification_service = NotificationService()
+# notification_service = NotificationService()
 notification_resolver = NotificationResolver()
 REMOTE_NOTIFICATION_SEND_URL = os.getenv(
     "REMOTE_NOTIFICATION_SEND_URL",
@@ -363,7 +369,7 @@ class SendNotificationRequest(BaseModel):
     weak_indicator: str
     watched_video_ids: list[int] = []
     months_in_role: Optional[int] = None
-    campaign_day: int = 2
+    campaign_day: int 
 
     @field_validator("user_id")
     @classmethod
@@ -385,6 +391,27 @@ class SendNotificationRequest(BaseModel):
         if not v or not v.strip():
             raise ValueError("weak_indicator cannot be empty")
         return v.strip().lower().replace(" ", "_")
+
+    @field_validator("campaign_day")
+    @classmethod
+    def validate_campaign_day(cls, v):
+        if v < 1 or v > 31:
+            raise ValueError("campaign_day must be between 1 and 31")
+        return v
+
+
+class SimpleNotificationRequest(BaseModel):
+    """Simplified request model - only requires user_id, auto-fetches everything else."""
+    user_id: int
+    campaign_day: int = 2
+    weak_indicator_override: Optional[str] = None  # Optional override for weak indicator
+    
+    @field_validator("user_id")
+    @classmethod
+    def validate_user_id(cls, v):
+        if v <= 0:
+            raise ValueError("user_id must be positive")
+        return v
 
     @field_validator("campaign_day")
     @classmethod
@@ -564,10 +591,99 @@ def _extract_reference_id(notification: dict) -> str:
     return "0"
 
 
+def _fetch_user_notification_params(user_id: int, weak_indicator_override: Optional[str] = None) -> dict:
+    """
+    Auto-fetch all required parameters for sending notification.
+    
+    Args:
+        user_id: User ID to fetch data for
+        weak_indicator_override: Optional override for weak indicator
+    
+    Returns:
+        dict with: user_id, user_name, weak_indicator, months_in_role, error (if any)
+    """
+    try:
+        # Fetch user details from PostgreSQL
+        user_details = get_user_details(user_id)
+        if not user_details:
+            return {
+                'error': f"User {user_id} not found in database",
+                'user_id': user_id,
+            }
+        
+        user_name = str(user_details.get("name", f"User {user_id}")).strip()
+        
+        # Get weak indicator: use override if provided, otherwise fetch from DB
+        if weak_indicator_override:
+            weak_indicator = str(weak_indicator_override).strip().lower().replace(" ", "_")
+            logger.info("Weak indicator override used | user_id=%s | indicator=%s", user_id, weak_indicator)
+        else:
+            try:
+                from database.db_config import engine as db_engine
+                weak_indicator = get_weak_indicator(db_engine, user_id)
+                if not weak_indicator:
+                    weak_indicator = "customer_generation"  # Safe default
+                logger.info("Weak indicator fetched from DB | user_id=%s | indicator=%s", user_id, weak_indicator)
+            except Exception as exc:
+                logger.warning("Failed to fetch weak indicator from DB | user_id=%s | error=%s | using default", user_id, exc)
+                weak_indicator = "customer_generation"
+        
+        # Calculate months_in_role from user's profile_activation_date if available
+        months_in_role = None
+        if user_details.get("profile_activation_date"):
+            try:
+                from datetime import datetime as dt
+                activation_date = user_details.get("profile_activation_date")
+                if isinstance(activation_date, str):
+                    activation_date = dt.fromisoformat(activation_date)
+                months_in_role = (dt.now() - activation_date).days // 30
+                if months_in_role < 0:
+                    months_in_role = 0
+            except Exception as exc:
+                logger.warning("Failed to calculate months_in_role | user_id=%s | error=%s", user_id, exc)
+                months_in_role = None
+        
+        return {
+            'user_id': user_id,
+            'user_name': user_name,
+            'weak_indicator': weak_indicator,
+            'months_in_role': months_in_role,
+            'error': None,
+        }
+    
+    except Exception as exc:
+        logger.exception("Error fetching user notification params | user_id=%s", user_id)
+        return {
+            'error': f"Failed to fetch user parameters: {str(exc)}",
+            'user_id': user_id,
+        }
+
+
 def _forward_to_remote_bulk_sender(user_id: int, notification: dict) -> dict:
-    """Forward built notification to deployed bulk sender endpoint."""
+    """
+    Forward built notification to deployed bulk sender endpoint.
+    
+    Args:
+        user_id: User ID to send notification to
+        notification: Notification object dict containing:
+            - notification_title
+            - notification_body
+            - notification_type (optional)
+            - deep_link (optional)
+    
+    Returns:
+        dict with:
+            - status_code: HTTP response status
+            - body: Response body (JSON dict or raw text)
+            - payload: The payload that was sent
+    
+    Raises:
+        HTTPException: If request fails or returns error status
+    """
     notification_type = str(notification.get("notification_type") or REMOTE_NOTIFICATION_TYPE).strip() or REMOTE_NOTIFICATION_TYPE
     deep_link = str(notification.get("deep_link", "")).strip()
+    
+    # Build payload in the format expected by remote endpoint
     payload = [
         {
             "user_id": int(user_id),
@@ -583,6 +699,7 @@ def _forward_to_remote_bulk_sender(user_id: int, notification: dict) -> dict:
         with httpx.Client(timeout=REMOTE_NOTIFICATION_TIMEOUT_SECONDS) as client:
             response = client.post(REMOTE_NOTIFICATION_SEND_URL, json=payload)
     except httpx.TimeoutException as exc:
+        logger.error("Remote notification sender timed out | url=%s | timeout=%s", REMOTE_NOTIFICATION_SEND_URL, REMOTE_NOTIFICATION_TIMEOUT_SECONDS)
         raise HTTPException(
             status_code=504,
             detail={
@@ -592,6 +709,7 @@ def _forward_to_remote_bulk_sender(user_id: int, notification: dict) -> dict:
             },
         ) from exc
     except httpx.HTTPError as exc:
+        logger.error("Remote notification sender request failed | url=%s | error=%s", REMOTE_NOTIFICATION_SEND_URL, exc)
         raise HTTPException(
             status_code=502,
             detail={
@@ -601,12 +719,15 @@ def _forward_to_remote_bulk_sender(user_id: int, notification: dict) -> dict:
             },
         ) from exc
 
+    # Try to parse response as JSON, fall back to raw text
     try:
         response_body = response.json()
     except Exception:
         response_body = {"raw": response.text}
 
+    # Check for error status codes
     if response.status_code >= 400:
+        logger.error("Remote notification sender error | status=%s | user_id=%s | response=%s", response.status_code, user_id, response_body)
         raise HTTPException(
             status_code=502,
             detail={
@@ -617,11 +738,14 @@ def _forward_to_remote_bulk_sender(user_id: int, notification: dict) -> dict:
             },
         )
 
+    logger.info("Notification forwarded to remote sender | user_id=%s | status_code=%s", user_id, response.status_code)
+    
     return {
         "status_code": response.status_code,
         "body": response_body,
         "payload": payload,
     }
+
 
 # ── RECOMMENDATION LOGIC ───────────────────────────────
 def get_recommendation(req: RecommendRequest):
@@ -835,11 +959,205 @@ def get_recommendation(req: RecommendRequest):
     }
 
 
+# ── GET RECOMMENDATION BY USER_ID ─────────────────────
+# def get_user_recommendation(user_id: int, weak_indicator: Optional[str] = None) -> dict:
+#     """
+#     Get recommendation for a user using only user_id.
+    
+#     This function:
+#     1. Fetches user details from PostgreSQL (name, region, role, language, months_in_role)
+#     2. Fetches user's weakest KII if weak_indicator not provided
+#     3. Calculates journey_day based on current date
+#     4. Fetches user's watched videos (if applicable)
+#     5. Constructs RecommendRequest
+#     6. Executes get_recommendation() to find best video
+#     7. Returns complete recommendation with video_id and metadata
+    
+#     Args:
+#         user_id: User ID (int)
+#         weak_indicator: Optional weak indicator override. If not provided, queries DB for weakest KII
+    
+#     Returns:
+#         dict with video_id, title, creator_name, summary, key_lesson, problem_solved,
+#         sales_phase, experience_level, notification_title, notification_body, score, etc.
+    
+#     Raises:
+#         HTTPException: If user not found, no weak indicator available, or no video found
+#     """
+#     from datetime import datetime, timedelta
+#     from weak_indicator import get_weak_indicator
+    
+#     logger.info("Getting recommendation for user_id=%s", user_id)
+    
+#     # Step 1: Fetch user details from PostgreSQL
+#     user_details = get_user_details(user_id)
+#     if not user_details:
+#         logger.error("User not found | user_id=%s", user_id)
+#         raise HTTPException(
+#             status_code=404,
+#             detail=f"User {user_id} not found in database"
+#         )
+    
+#     user_name = str(user_details.get("name", f"User {user_id}")).strip()
+#     user_region = str(user_details.get("region", "")).strip() or "unknown"
+#     user_role = str(user_details.get("role", "RM")).strip().upper()
+#     user_language = normalize_language(str(user_details.get("app_language_id", "en") or "en"))
+#     user_created_at = user_details.get("created_at")
+    
+#     # Validate role
+#     if user_role not in VALID_ROLES:
+#         user_role = "RM"  # Default to RM if invalid
+#         logger.warning("Invalid user role, defaulting to RM | user_id=%s | role=%s", user_id, user_role)
+    
+#     # Step 2: Get weak indicator (either provided or fetch from DB)
+#     if weak_indicator:
+#         weak = str(weak_indicator).strip().lower().replace(" ", "_")
+#     else:
+#         try:
+#             from database.db_config import engine as db_engine
+#             weak = get_weak_indicator(db_engine, user_id)
+#         except Exception as exc:
+#             logger.warning("Failed to fetch weak indicator from DB | user_id=%s | error=%s | using default", user_id, exc)
+#             weak = "customer_generation"
+    
+#     # Validate weak_indicator
+#     _load_indicator_configuration()
+#     if weak not in VALID_INDICATORS:
+#         logger.warning("Invalid weak_indicator %s, using customer_generation", weak)
+#         weak = "customer_generation"
+    
+#     # Step 3: Calculate journey_day from created_at or use default
+#     try:
+#         if user_created_at:
+#             journey_day = (datetime.now() - user_created_at).days + 1
+#             if journey_day < 1:
+#                 journey_day = 1
+#             if journey_day > 31:
+#                 journey_day = 31  # Cap at 31
+#         else:
+#             journey_day = 7  # Default to day 7
+#     except Exception as exc:
+#         logger.warning("Failed to calculate journey_day | user_id=%s | error=%s | using default", user_id, exc)
+#         journey_day = 7
+    
+#     # Step 4: Calculate months_in_role from created_at
+#     try:
+#         if user_created_at:
+#             months_in_role = (datetime.now() - user_created_at).days // 30
+#             if months_in_role < 0:
+#                 months_in_role = 0
+#         else:
+#             months_in_role = None
+#     except Exception:
+#         months_in_role = None
+    
+#     # Step 5: Construct RecommendRequest
+#     req = RecommendRequest(
+#         user_id=user_id,
+#         user_name=user_name,
+#         role=user_role,
+#         region=user_region,
+#         weak_indicator=weak,
+#         user_language=user_language,
+#         journey_day=journey_day,
+#         watched_ids=[],  # Can be extended to fetch user's watch history
+#         months_in_role=months_in_role,
+#     )
+    
+#     logger.info(
+#         "Recommendation request prepared | user_id=%s | name=%s | role=%s | region=%s | weak=%s | journey_day=%s | months_in_role=%s",
+#         user_id,
+#         user_name,
+#         user_role,
+#         user_region,
+#         weak,
+#         journey_day,
+#         months_in_role,
+#     )
+    
+#     # Step 6: Execute recommendation
+#     try:
+#         result = get_recommendation(req)
+#         logger.info(
+#             "Recommendation successful | user_id=%s | video_id=%s | score=%s",
+#             user_id,
+#             result.get("video_id"),
+#             result.get("score"),
+#         )
+#         return result
+#     except HTTPException as exc:
+#         logger.error("Recommendation failed | user_id=%s | error=%s", user_id, exc.detail)
+#         raise
+#     except Exception as exc:
+#         logger.exception("Unexpected error in recommendation | user_id=%s", user_id)
+#         raise HTTPException(
+#             status_code=500,
+#             detail=f"Failed to get recommendation for user {user_id}: {str(exc)}"
+#         ) from exc
+
+
 # ── ENDPOINTS ──────────────────────────────────────────
 
-@app.get("/")
-def root():
-    return {"status": "CLAN Recommendation API is running"}
+# @app.get("/")
+# def root():
+#     return {"status": "CLAN Recommendation API is running"}
+
+
+# @app.get("/recommend-video-by-user-id/{user_id}", response_model=RecommendResponse)
+# def get_video_recommendation_by_user_id(user_id: int, weak_indicator: Optional[str] = None):
+#     """
+#     Get video recommendation for a user using only user_id.
+    
+#     This endpoint:
+#     1. Fetches user from PostgreSQL (name, region, role, language, join date)
+#     2. Fetches user's weakest KII (key input indicator) if not provided
+#     3. Calculates journey_day and months_in_role from user's created_at
+#     4. Fetches all video recommendations from Qdrant
+#     5. Scores and filters videos based on:
+#        - Weak indicator match
+#        - Sales phase (acquisition vs conversion based on journey day)
+#        - Experience level (new_joiner vs experienced vs senior)
+#        - Language match
+#        - Semantic relevance
+#     6. Returns the best matching video with full metadata
+    
+#     Args:
+#         user_id: User ID (int) - Required path parameter
+#         weak_indicator: Optional - Override user's weak indicator (e.g., "customer_generation")
+    
+#     Returns:
+#         RecommendResponse with:
+#             - video_id: Unique video identifier
+#             - title: Video title
+#             - creator_name: Creator's name
+#             - summary: 3-4 sentence AI-generated summary
+#             - key_lesson: One-sentence key takeaway
+#             - problem_solved: What problem this video solves
+#             - sales_phase: acquisition, development, conversion, or all
+#             - experience_level: new_joiner, experienced, senior, or all
+#             - notification_title: Personalized push notification title
+#             - notification_body: Personalized push notification body
+#             - score: Recommendation score (0.0-1.0)
+#             - matched_indicator: The weak indicator used for matching
+#             - language_match_type: exact, english_fallback, or other_fallback
+    
+#     Example:
+#         GET /recommend-video-by-user-id/1020
+#         GET /recommend-video-by-user-id/1020?weak_indicator=customer_generation
+    
+#     Raises:
+#         404: User not found in database
+#         422: Invalid weak_indicator or no valid videos found
+#         500: Internal server error
+#     """
+#     try:
+#         result = get_user_recommendation(user_id, weak_indicator)
+#         return result
+#     except HTTPException:
+#         raise
+#     except Exception as exc:
+#         logger.exception("Unexpected error | user_id=%s", user_id)
+#         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 
 @app.middleware("http")
@@ -1048,3 +1366,324 @@ def send_notifications(req: SendNotificationRequest):
             status_code=500,
             detail=f"Internal error: {str(exc)}",
         ) from exc
+
+
+@app.post("/notifications/send", response_model=SendNotificationResponse)
+def send_notification_auto(req: SimpleNotificationRequest):
+    """
+    Simplified endpoint - Send notifications with ONLY user_id.
+    
+    Auto-fetches and calculates all parameters:
+    1. Fetches user name, region, role from PostgreSQL
+    2. Auto-detects weak indicator (weakest KII from this week)
+    3. Calculates months_in_role from user's profile_activation_date
+    4. Builds and sends notification
+    5. Forwards to remote bulk sender
+    
+    This is the SIMPLEST way to send notifications - just provide user_id!
+    
+    Args:
+        req: SimpleNotificationRequest with:
+            - user_id: User's ID (REQUIRED, e.g., 1020)
+            - campaign_day: Campaign day number (optional, default: 2)
+            - weak_indicator_override: Optional override for weak indicator
+    
+    Request Examples:
+        POST /notifications/send
+        {"user_id": 1020}
+        
+        POST /notifications/send
+        {"user_id": 1020, "campaign_day": 1}
+        
+        POST /notifications/send
+        {"user_id": 1020, "campaign_day": 1, "weak_indicator_override": "customer_met"}
+    
+    Returns:
+        SendNotificationResponse with complete notification data
+    
+    Raises:
+        HTTPException: 404 if user not found, 422 if notification build fails, 500 for errors
+    """
+    try:
+        _load_indicator_configuration()
+        
+        logger.info(
+            "Auto-fetch notification request | user_id=%s | campaign_day=%s",
+            req.user_id,
+            req.campaign_day,
+        )
+        
+        # ─────────────────────────────────────────────────────────
+        # STEP 1: Auto-fetch all missing parameters
+        # ─────────────────────────────────────────────────────────
+        params = _fetch_user_notification_params(req.user_id, req.weak_indicator_override)
+        
+        if params.get("error"):
+            logger.error("Failed to fetch user parameters | user_id=%s | error=%s", req.user_id, params['error'])
+            raise HTTPException(
+                status_code=404,
+                detail=params['error'],
+            )
+        
+        user_id = params['user_id']
+        user_name = params['user_name']
+        weak_indicator = params['weak_indicator']
+        months_in_role = params['months_in_role']
+        
+        logger.info(
+            "User parameters fetched | user_id=%s | name=%s | weak_indicator=%s | months_in_role=%s",
+            user_id,
+            user_name,
+            weak_indicator,
+            months_in_role,
+        )
+        
+        # ─────────────────────────────────────────────────────────
+        # STEP 2: Validate weak indicator
+        # ─────────────────────────────────────────────────────────
+        if weak_indicator not in VALID_INDICATORS:
+            logger.warning(
+                "Invalid weak_indicator | user_id=%s | indicator=%s | valid=%s",
+                user_id,
+                weak_indicator,
+                sorted(list(VALID_INDICATORS))[:5],  # Show first 5 valid
+            )
+            raise HTTPException(
+                status_code=422,
+                detail=(
+                    f"weak_indicator '{weak_indicator}' not valid for account. "
+                    f"Valid indicators include: {sorted(list(VALID_INDICATORS))[:5]} (and {len(VALID_INDICATORS)-5} more)"
+                ),
+            )
+        
+        # ─────────────────────────────────────────────────────────
+        # STEP 3: Call resolver with auto-fetched parameters
+        # ─────────────────────────────────────────────────────────
+        result = notification_resolver.send_notifications(
+            user_id=user_id,
+            user_name=user_name,
+            weak_indicator=weak_indicator,
+            watched_video_ids=None,  # Can be extended later
+            months_in_role=months_in_role,
+            campaign_day=req.campaign_day,
+        )
+        
+        # ─────────────────────────────────────────────────────────
+        # STEP 4: Check resolver success
+        # ─────────────────────────────────────────────────────────
+        if not result.get("success"):
+            logger.error(
+                "Notification resolution failed | user_id=%s | error=%s",
+                user_id,
+                result.get("error", "Unknown error"),
+            )
+            raise HTTPException(
+                status_code=422,
+                detail=f"Failed to build notification for user {user_id}: {result.get('error', 'Unknown error')}",
+            )
+        
+        # ─────────────────────────────────────────────────────────
+        # STEP 5: Forward to remote bulk sender
+        # ─────────────────────────────────────────────────────────
+        notification_obj = result.get("notification", {})
+        remote_result = _forward_to_remote_bulk_sender(
+            user_id=user_id,
+            notification=notification_obj,
+        )
+
+        # ─────────────────────────────────────────────────────────
+        # STEP 6: Build and return response
+        # ─────────────────────────────────────────────────────────
+        response = SendNotificationResponse(
+            success=True,
+            user_id=result.get("user_id"),
+            notification=NotificationObject(**notification_obj),
+            test_file_path=result.get("test_file_path"),
+            remote_send_status="sent",
+            remote_send_response={
+                "status_code": remote_result.get("status_code"),
+                "response": remote_result.get("body"),
+                "request_payload": remote_result.get("payload"),
+                "remote_url": REMOTE_NOTIFICATION_SEND_URL,
+            },
+        )
+        
+        logger.info(
+            "Auto-fetch notification completed successfully | user_id=%s | campaign_day=%s | weak_indicator=%s",
+            user_id,
+            req.campaign_day,
+            weak_indicator,
+        )
+        
+        return response
+        
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.exception("Unexpected error in send_notification_auto endpoint | user_id=%s", req.user_id)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Internal error: {str(exc)}",
+        ) from exc
+
+
+def send_day_1_notification(user_id: int) -> bool:
+    payload = [
+        {
+            "user_id": user_id,
+            "title": "Day 1 Title",
+            "description": "Day 1 Description",
+            "notification_type": "PUSH_VIDEO_FOR_USER",
+            "reference_id": 300,
+            "video_popup": True,
+            "image": None
+        }
+    ]
+    try:
+        response = requests.post(NOTIFICATION_API_URL, json=payload)
+        response.raise_for_status()
+        print(f"Day 1 notification sent to user {user_id}: {response.json()}")
+        return True
+    except Exception as e:
+        print(f"Failed to send Day 1 notification to user {user_id}: {e}")
+        return False
+
+def send_day_2_notification(user_id: int) -> bool:
+    payload = [
+        {
+            "user_id": user_id,
+            "title": "Day 2 Title",
+            "description": "Day 2 Description",
+            "notification_type": "push_video_for_user",
+            "reference_id": 300,
+            "video_popup": True,
+            "image": None
+        }
+    ]
+    try:
+        response = requests.post(NOTIFICATION_API_URL, json=payload)
+        response.raise_for_status()
+        print(f"Day 2 notification sent to user {user_id}: {response.json()}")
+        return True
+    except Exception as e:
+        print(f"Failed to send Day 2 notification to user {user_id}: {e}")
+        return False
+
+
+def send_day_3_notification(user_id: int) -> bool:
+    payload = [
+        {
+            "user_id": user_id,
+            "title": "Day 3 Title",
+            "description": "Day 3 Description",
+            "notification_type": "push_video_for_user",
+            "reference_id": 300,
+            "video_popup": True,
+            "image": None
+        }
+    ]
+    try:
+        response = requests.post(NOTIFICATION_API_URL, json=payload)
+        response.raise_for_status()
+        print(f"Day 3 notification sent to user {user_id}: {response.json()}")
+        return True
+    except Exception as e:
+        print(f"Failed to send Day 3 notification to user {user_id}: {e}")
+        return False
+
+
+def send_day_4_notification(user_id: int) -> bool:
+    payload = [
+        {
+            "user_id": user_id,
+            "title": "Day 4 Title",
+            "description": "Day 4 Description",
+            "notification_type": "push_video_for_user",
+            "reference_id": 300,
+            "video_popup": True,
+            "image": None
+        }
+    ]
+    try:
+        response = requests.post(NOTIFICATION_API_URL, json=payload)
+        response.raise_for_status()
+        print(f"Day 4 notification sent to user {user_id}: {response.json()}")
+        return True
+    except Exception as e:
+        print(f"Failed to send Day 4 notification to user {user_id}: {e}")
+        return False
+
+
+def send_day_5_notification(user_id: int) -> bool:
+    payload = [
+        {
+            "user_id": user_id,
+            "title": "Day 5 Title",
+            "description": "Day 5 Description",
+            "notification_type": "push_video_for_user",
+            "reference_id": 300,
+            "video_popup": True,
+            "image": None
+        }
+    ]
+    try:
+        response = requests.post(NOTIFICATION_API_URL, json=payload)
+        response.raise_for_status()
+        print(f"Day 5 notification sent to user {user_id}: {response.json()}")
+        return True
+    except Exception as e:
+        print(f"Failed to send Day 5 notification to user {user_id}: {e}")
+        return False
+
+
+def send_day_6_notification(user_id: int) -> bool:
+    payload = [
+        {
+            "user_id": user_id,
+            "title": "Day 6 Title",
+            "description": "Day 6 Description",
+            "notification_type": "push_video_for_user",
+            "reference_id": 300,
+            "video_popup": True,
+            "image": None
+        }
+    ]
+    try:
+        response = requests.post(NOTIFICATION_API_URL, json=payload)
+        response.raise_for_status()
+        print(f"Day 6 notification sent to user {user_id}: {response.json()}")
+        return True
+    except Exception as e:
+        print(f"Failed to send Day 6 notification to user {user_id}: {e}")
+        return False
+
+
+DAY_NOTIFICATION_FUNCTIONS = {
+    1: send_day_1_notification,
+    2: send_day_2_notification,
+    3: send_day_3_notification,
+    4: send_day_4_notification,
+    5: send_day_5_notification,
+    6: send_day_6_notification,
+}
+
+
+@app.post("/notifications/send-to-remote")
+def send_notification_to_remote(day: int) -> bool:
+    if day not in DAY_NOTIFICATION_FUNCTIONS:
+        print(f"Invalid day: {day}. Must be between 1 and 7.")
+        return False
+
+    users = [1020,953]  # replace with actual user list
+
+    for user in users:
+        user_details = get_user_details(user)
+
+        if user_details:
+            print(f"Sending Day {day} notification to user {user}...")
+            DAY_NOTIFICATION_FUNCTIONS[day](user_details["id"])  # call the correct day function
+        else:
+            print(f"No details found for user ID: {user}")
+
+    return True
+

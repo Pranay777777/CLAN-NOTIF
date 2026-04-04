@@ -17,8 +17,7 @@ def get_user_details(user_id: int):
     query = text(
         """
         SELECT 
-            u.id,
-            u.name,
+            u.*,
             e.account_id
         FROM public."user" u
         LEFT JOIN public.expert_user e ON e.user_id = u.id

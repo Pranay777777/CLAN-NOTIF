@@ -253,7 +253,6 @@ c:/Users/aim4g/Desktop/TMI/video...ex/.venv/Scripts/python.exe `
 ```
 
 **Flags**:
-- `--input` — Excel file with OCR and transcript columns
 - `--output` — Output file to save enriched metadata
 - `--limit` — Process only N videos (default: all)
 - `--api-key` — Override GEMINI_API_KEY (optional)

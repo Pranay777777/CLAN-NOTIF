@@ -78,11 +78,6 @@ htmlcov/
 # DATA FILES (Temporary / Generated)
 # ========================================================================
 
-# Excel files (temporary output)
-*.xlsx
-*.xls
-*.csv
-
 # Database files
 *.db
 *.sqlite

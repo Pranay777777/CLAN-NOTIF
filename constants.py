@@ -3,7 +3,6 @@ ACCOUNT_ID = 14
 EXCLUDED_VIDEO_TITLES = (
     "Abhishek Sahu - An Intro",
     "Kasibabu Kanchi - An Intro",
-    "Pathan Hyder Hussain-",
     "Charan Teja - An Intro",
 )
 

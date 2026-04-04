@@ -42,8 +42,14 @@ class VideoSelector:
                     if is_excluded_video(title):
                         continue
 
+                    # Parse video_id to integer (Qdrant stores as string, Postgres as bigint)
+                    try:
+                        video_id = int(payload.get("video_id", 0)) if payload.get("video_id") else 0
+                    except (ValueError, TypeError):
+                        video_id = 0
+                    
                     video_dict = {
-                        "video_id": payload.get("video_id"),
+                        "video_id": video_id,
                         "Title": title,
                         "creator": str(payload.get("creator_name", payload.get("creator", ""))).strip(),
                         "lead_indicator": " ".join(payload.get("lead_indicators", [])),
@@ -105,7 +111,8 @@ class VideoSelector:
         """Pick one video deterministically using seed key."""
         if not videos:
             return None
-        sorted_videos = sorted(videos, key=lambda v: (v.get("video_id", 0), v.get("Title", "")))
+        # Sort by video_id (normalized to int) then title - both as comparable types
+        sorted_videos = sorted(videos, key=lambda v: (int(v.get("video_id", 0)) or 0, v.get("Title", "")))
         seed = int(hashlib.md5(seed_key.encode("utf-8")).hexdigest(), 16)
         return sorted_videos[seed % len(sorted_videos)]
 
