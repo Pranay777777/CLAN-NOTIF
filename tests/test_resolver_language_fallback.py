@@ -54,8 +54,8 @@ class ResolverLanguageFallbackTests(unittest.TestCase):
             )
 
         self.assertTrue(result["success"])
-        self.assertEqual(DummyNotificationService.captured_req.language, "hi")
-        self.assertEqual(DummyNotificationService.captured_req.user_language, "hi")
+        self.assertEqual(DummyNotificationService.captured_req.language, "hindi")
+        self.assertEqual(DummyNotificationService.captured_req.user_language, "hindi")
 
 
 if __name__ == "__main__":
