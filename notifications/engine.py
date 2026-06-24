@@ -476,6 +476,118 @@ class NotificationEngine:
             deep_link="clan://darts/home",
             notification_type=self._notification_type_for_day(16),
         )
+    # Add these methods to NotificationEngine class in notifications/engine.py
+
+    def generate_day9(self, req: NotificationRequest) -> Dict[str, Any]:
+        """Day 9: Supervisor Push"""
+        user_name = self._short_name(req.user_name)
+        creator_name = self._normalize_space(req.creator_name or "Your Supervisor")
+        video_title = self._safe_truncate(req.video_title or "", max_chars=42)
+        
+        title = "Your supervisor recommended video for you!"
+        body = f"{user_name}, your supervisor {creator_name} picked this video just for you. Watch and impress them!"
+        
+        if video_title:
+            body = f"{body} Video: {video_title}"
+        
+        return self._enforce_limits(
+            title=title,
+            body=body,
+            action="Watch video",
+            deep_link=self._video_deep_link(req.video_id),
+            notification_type="SUPERVISOR_PUSH",
+        )
+
+    def generate_day12(self, req: NotificationRequest) -> Dict[str, Any]:
+        """Day 12: New Video Alert"""
+        user_name = self._short_name(req.user_name)
+        creator_name = self._normalize_space(req.creator_name or "a colleague")
+        network_scope = self._normalize_space(req.creator_team or req.creator_region or req.region or "")
+        if network_scope.lower() in {"", "all", "unknown", "na", "n/a"}:
+            network_scope = "your network"
+        outcome_hint = self._normalize_space(req.outcome_hint or "improving conversions").lower()
+        short_video_title = self._safe_truncate(req.video_title or "", max_chars=42)
+
+        if req.creator_name:
+            title = "New video from someone you know!"
+            body = f"{creator_name} from {network_scope} shares tips on {outcome_hint}."
+        else:
+            title = "New video from someone you know!"
+            body = f"Someone from {network_scope} shares tips on {outcome_hint}."
+
+        if short_video_title:
+            body = f"{body} Watch: {short_video_title}"
+
+        if self._is_generic(body):
+            body = self._de_genericize(req)
+
+        return self._enforce_limits(
+            title=title,
+            body=body,
+            action="Open video",
+            deep_link=self._video_deep_link(req.video_id),
+            notification_type=self._notification_type_for_day(12),
+        )
+
+    def generate_day19(self, req: NotificationRequest) -> Dict[str, Any]:
+        """Day 19: Leader Message"""
+        user_name = self._short_name(req.user_name)
+        creator_name = self._normalize_space(req.creator_name or "Your Leader")
+        video_title = self._safe_truncate(req.video_title or "", max_chars=42)
+        
+        title = "Watch this message from your leader today!"
+        body = f"{user_name}, your leader {creator_name} has a special message just for you."
+        
+        if video_title:
+            body = f"{body} Video: {video_title}"
+        
+        return self._enforce_limits(
+            title=title,
+            body=body,
+            action="Watch video",
+            deep_link=self._video_deep_link(req.video_id),
+            notification_type="LEADER_MESSAGE",
+        )
+
+    def generate_day20(self, req: NotificationRequest) -> Dict[str, Any]:
+        """Day 20: Inspirational Story"""
+        user_name = self._short_name(req.user_name)
+        creator_name = self._normalize_space(req.creator_name or "Top Performer")
+        video_title = self._safe_truncate(req.video_title or "", max_chars=42)
+        
+        title = "Watch this inspirational story"
+        body = f"{user_name}, {creator_name} was once where you are. See how they climbed to the top!"
+        
+        if video_title:
+            body = f"{body} Video: {video_title}"
+        
+        return self._enforce_limits(
+            title=title,
+            body=body,
+            action="Watch video",
+            deep_link=self._video_deep_link(req.video_id),
+            notification_type="INSPIRATIONAL_STORY",
+        )
+
+    def generate_day21(self, req: NotificationRequest) -> Dict[str, Any]:
+        """Day 21: CBO Message"""
+        user_name = self._short_name(req.user_name)
+        creator_name = self._normalize_space(req.creator_name or "Your CBO")
+        video_title = self._safe_truncate(req.video_title or "", max_chars=42)
+        
+        title = "CBO message on Clan! Use to Win at Work!"
+        body = f"{user_name}, your CBO has a final message. Watch it and commit to winning at work!"
+        
+        if video_title:
+            body = f"{body} Video: {video_title}"
+        
+        return self._enforce_limits(
+            title=title,
+            body=body,
+            action="Watch video",
+            deep_link=self._video_deep_link(req.video_id),
+            notification_type="CBO_MESSAGE",
+        )
 
     def generate(self, req: NotificationRequest) -> Dict[str, Any]:
         if req.campaign_day == 1:
@@ -491,9 +603,14 @@ class NotificationEngine:
 
         if req.campaign_day == 5: return self.generate_day5(req)
         if req.campaign_day == 6: return self.generate_day6(req)
+        if req.campaign_day == 9: return self.generate_day9(req)
         if req.campaign_day == 10: return self.generate_day10(req)
         if req.campaign_day == 11: return self.generate_day11(req)
+        if req.campaign_day == 12: return self.generate_day12(req)
         if req.campaign_day == 16: return self.generate_day16(req)
+        if req.campaign_day == 19: return self.generate_day19(req)
+        if req.campaign_day == 20: return self.generate_day20(req)
+        if req.campaign_day == 21: return self.generate_day21(req)
 
         # Day 12
         creator_name = self._normalize_space(req.creator_name or "a colleague")

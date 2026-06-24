@@ -41,7 +41,7 @@ class DayNotificationEngineTests(unittest.TestCase):
                 self.assertEqual(result.get("notification_type"), enum_value)
 
     def test_video_days_have_deep_link(self):
-        for day in (1, 2, 4):
+        for day in (2, 4, 9, 10, 12, 19, 20, 21):
             with self.subTest(day=day):
                 result = self.engine.generate(self._req(day))
                 self.assertIn("/watch/294", result.get("deep_link", ""))
